@@ -1,4 +1,4 @@
-﻿namespace LelTarGameBackend.DTOs
+﻿namespace LelTarGameBackend.DTOs.v1
 {
 	public class ScoreSubmission
 	{

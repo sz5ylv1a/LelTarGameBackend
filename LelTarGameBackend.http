@@ -1,4 +1,4 @@
-﻿@LelTarGameBackend_HostAddress = http://localhost:5101
+﻿@LelTarGameBackend_HostAddress = https://localhost:5101
 
 GET {{LelTarGameBackend_HostAddress}}/weatherforecast/
 Accept: application/json

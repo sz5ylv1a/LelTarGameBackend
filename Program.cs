@@ -1,50 +1,33 @@
-﻿using LelTarGameBackend.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Asp.Versioning;
+using LelTarGameBackend.Data.v1;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 
+// API versioning setup
+builder.Services.AddApiVersioning(options =>
+{
+	options.DefaultApiVersion = new ApiVersion(1, 0);
+	options.AssumeDefaultVersionWhenUnspecified = true;
+	options.ReportApiVersions = true;
+})
+.AddApiExplorer(options =>
+{
+	options.GroupNameFormat = "'v'VVV";
+	options.SubstituteApiVersionInUrl = true;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-// the piece of shit here just kept throwing bullshit fuckin errors so i said "fuck this" and commented all this shit out
-builder.Services.AddSwaggerGen(//c =>
-//{
-//	c.SwaggerDoc("v0", new() { Title = "Lel.tar API", Version = "v0" });
 
-//	// JWT auth config in Swagger
-//	c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-//	{
-//		Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
-//		Name = "Authorization",
-//		In = ParameterLocation.Header,
-//		Type = SecuritySchemeType.ApiKey,
-//		Scheme = "Bearer"
-//	});
-
-//	c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-//	{
-//		{
-//			new OpenApiSecurityScheme
-//			{
-//				Reference = new OpenApiReference
-//				{
-//					Type = ReferenceType.SecurityScheme,
-//					Id = "Bearer"
-//				},
-//				Scheme = "oauth2",
-//				Name = "Bearer",
-//				In = ParameterLocation.Header,
-//			},
-//			new List<string>()
-//		}
-//	});
-//}
-);
+builder.Services.AddSwaggerGen(c =>
+{
+	c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lel.tar Backend API v1", Version = "v1.0"	});
+});
 
 // connect this shit to database
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -93,8 +76,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+	app.UseSwagger(c =>
+	{
+		c.RouteTemplate = "/swagger/{documentName}/swagger.json";
+	});
+	app.UseSwaggerUI(c =>
+	{
+		c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lel.tar Backend API v1.x");
+		c.RoutePrefix = "swagger";
+	});
 }
 
 app.UseHttpsRedirection();

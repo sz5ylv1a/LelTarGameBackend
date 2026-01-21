@@ -1,7 +1,7 @@
-﻿using LelTarGameBackend.Models;
+﻿using LelTarGameBackend.Models.v1;
 using Microsoft.EntityFrameworkCore;
 
-namespace LelTarGameBackend.Data
+namespace LelTarGameBackend.Data.v1
 {
 	public class AppDbContext : DbContext
 	{

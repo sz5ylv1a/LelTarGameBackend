@@ -1,12 +1,14 @@
-﻿using LelTarGameBackend.Data;
-using LelTarGameBackend.Models;
+﻿using Asp.Versioning;
+using LelTarGameBackend.Data.v1;
+using LelTarGameBackend.Models.v1;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LelTarGameBackend.Controllers
+namespace LelTarGameBackend.Controllers.v1
 {
-	[Route("api/[controller]")]
+	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiController]
+	[ApiVersion("1.0")]
 	public class UsersController : ControllerBase
 	{
 		private readonly AppDbContext _context;
