@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LelTarGameBackend.Data;
+using LelTarGameBackend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LelTarGameBackend.Data;
-using LelTarGameBackend.Models;
 
 namespace LelTarGameBackend.Controllers
 {
