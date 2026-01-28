@@ -30,6 +30,11 @@ namespace LelTarGameBackend.Data.v1
 				e.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnType("varchar(128)");
+				e.Property(e => e.Flag)
+					.HasColumnType("varchar(4)");
+
+				//e.HasMany(e => e.Users)
+				//	.WithMany(e => e.Countries);
 			});
 
 			modelBuilder.Entity<Difficulties>(e =>
