@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace LelTarGameBackend.Models.v1
 {
@@ -20,16 +18,8 @@ namespace LelTarGameBackend.Models.v1
 		[StringLength(1024)]
 		public required string Password { get; set; }
 
-		[ForeignKey("Country")]
 		public int CountryID { get; set; }
-		[JsonIgnore]
-		public Countries? Countries { get; set; }
 
-		[JsonIgnore]
-		public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-		[JsonIgnore]
-		[ForeignKey("LbUser")]
-		public ICollection<Lb>? Leaderboards { get; set; }
+		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 	}
 }
