@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using LelTarGameBackend.Data.v1;
 using LelTarGameBackend.Models.v1;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace LelTarGameBackend.Controllers.v1
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiController]
 	[ApiVersion("1.0")]
+	[Authorize]
 	public class LbsController : ControllerBase
 	{
 		private readonly AppDbContext _context;

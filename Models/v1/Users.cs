@@ -19,6 +19,9 @@ namespace LelTarGameBackend.Models.v1
 		public required string Password { get; set; }
 
 		public int CountryID { get; set; }
+		[Required]
+		[StringLength(32)]
+		public required string Role { get; set; } = "Default";
 
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 	}

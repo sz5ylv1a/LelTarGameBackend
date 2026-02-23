@@ -1,7 +1,10 @@
 ﻿using Asp.Versioning;
 using LelTarGameBackend.Data.v1;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,30 +38,31 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // JWT auth config
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["SecretKey"];
+var secretKey = jwtSettings["Key"];
 
-//builder.Services.AddAuthentication(options =>
-//{
-//	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//})
-//.AddJwtBearer(options =>
-//{
-//	options.TokenValidationParameters = new TokenValidationParameters
-//	{
-//		ValidateIssuer = true,
-//		ValidateAudience = true,
-//		ValidateLifetime = true,
-//		ValidateIssuerSigningKey = true,
-//		ValidIssuer = jwtSettings["Issuer"],
-//		ValidAudience = jwtSettings["Audience"],
-//		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!)),
-//		ClockSkew = TimeSpan.Zero
-//	};
-//});
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuer = true,
+		ValidateAudience = true,
+		ValidateLifetime = true,
+		ValidateIssuerSigningKey = true,
+		ValidIssuer = jwtSettings["Issuer"],
+		ValidAudience = jwtSettings["Audience"],
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!)),
+		ClockSkew = TimeSpan.Zero
+	};
+});
 
 // add auth
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<TokenService>();
 
 // CORS config, dunno what would this be used for LOL
 builder.Services.AddCors(options =>
