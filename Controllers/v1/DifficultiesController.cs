@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LelTarGameBackend.Controllers.v1
 {
-	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiController]
 	[ApiVersion("1.0")]
+	[Route("api/v{version:apiVersion}/[controller]")]
 	[Authorize]
 	[AllowAnonymous]
 	public class DifficultiesController(AppDbContext context) : ControllerBase
