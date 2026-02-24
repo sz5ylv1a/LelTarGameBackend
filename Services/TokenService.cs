@@ -4,16 +4,11 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using LelTarGameBackend.Models.v1;
 
-namespace VideoPortal.Services;
+namespace LelTarGameBackend.Services;
 
-public class TokenService
+public class TokenService(IConfiguration config)
 {
-	private readonly IConfiguration _config;
-
-	public TokenService(IConfiguration config)
-	{
-		_config = config;
-	}
+	private readonly IConfiguration _config = config;
 
 	public string GenerateToken(Users user)
 	{

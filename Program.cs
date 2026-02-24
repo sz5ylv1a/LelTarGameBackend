@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using LelTarGameBackend.Data.v1;
+using LelTarGameBackend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LelTarGameBackend.Data.v1
 {
-	public class AppDbContext : DbContext
+	public class AppDbContext(DbContextOptions options) : DbContext(options)
 	{
-		public AppDbContext(DbContextOptions options) : base(options) { }
-
 		public DbSet<Difficulties> Difficulties { get; set; }
 		public DbSet<Countries> Countries { get; set; }
 		public DbSet<Users> Users { get; set; }
@@ -98,6 +96,11 @@ namespace LelTarGameBackend.Data.v1
 					.HasMaxLength(1024)
 					.HasColumnType("varchar(1024)");
 				e.Property(e => e.CountryID);
+				e.Property(e => e.Role)
+					.IsRequired()
+					.HasMaxLength(32)
+					.HasColumnType("varchar(32)")
+					.HasDefaultValueSql("Default");
 				e.Property(e => e.CreatedAt)
 					.IsRequired()
 					.HasColumnType("datetime")

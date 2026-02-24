@@ -11,14 +11,9 @@ namespace LelTarGameBackend.Controllers.v1
 	[ApiController]
 	[ApiVersion("1.0")]
 	[Authorize]
-	public class LbsController : ControllerBase
+	public class LbsController(AppDbContext context) : ControllerBase
 	{
-		private readonly AppDbContext _context;
-
-		public LbsController(AppDbContext context)
-		{
-			_context = context;
-		}
+		private readonly AppDbContext _context = context;
 
 		// GET: api/Lbs
 		[HttpGet]

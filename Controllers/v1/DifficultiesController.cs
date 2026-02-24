@@ -11,14 +11,9 @@ namespace LelTarGameBackend.Controllers.v1
 	[ApiController]
 	[ApiVersion("1.0")]
 	[AllowAnonymous]
-	public class DifficultiesController : ControllerBase
+	public class DifficultiesController(AppDbContext context) : ControllerBase
 	{
-		private readonly AppDbContext _context;
-
-		public DifficultiesController(AppDbContext context)
-		{
-			_context = context;
-		}
+		private readonly AppDbContext _context = context;
 
 		// GET: api/Difficulties
 		[HttpGet]
