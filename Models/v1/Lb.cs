@@ -15,6 +15,7 @@ namespace LelTarGameBackend.Models.v1
 
 		[Required]
 		public int DifficultyID { get; set; }
+		public bool IsDisqualified { get; set; } = false;
 
 		public DateTime AchievedAt { get; set; } = DateTime.UtcNow;
 	}
