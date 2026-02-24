@@ -21,7 +21,7 @@ builder.Services.AddApiVersioning(options =>
 })
 .AddApiExplorer(options =>
 {
-	options.GroupNameFormat = "'v'V";
+	options.GroupNameFormat = "'v'VVV";
 	options.SubstituteApiVersionInUrl = true;
 });
 
