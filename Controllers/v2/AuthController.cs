@@ -11,14 +11,14 @@ namespace LelTarGameBackend.Controllers.v2
 {
 	[ApiController]
 	[ApiVersion("2.0")]
-	[Route("api/v{version:ApiVersion}/[controller]")]
+	[Route("api/v{version:ApiVersion}/auth")]
 	[Authorize]
 	public class AuthController(AppDbContext context, TokenService tokenSvc) : ControllerBase
 	{
 		private readonly AppDbContext _context = context;
 		private readonly TokenService _tokenSvc = tokenSvc;
 
-		[HttpPost("registerAccount")]
+		[HttpPost("register")]
 		public async Task<IActionResult> Register(RegisterRequest req)
 		{
 			var emailCheck = await _context.Users.AnyAsync(u => u.Email == req.Email);
@@ -49,7 +49,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new AuthResponse(token, user.Username, user.Role));
 		}
 
-		[HttpPost("loginAccount")]
+		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginRequest req)
 		{
 			var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == req.Username);
