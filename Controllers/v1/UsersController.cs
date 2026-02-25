@@ -17,6 +17,7 @@ namespace LelTarGameBackend.Controllers.v1
 
 		// GET: api/Users
 		[HttpGet]
+		[AllowAnonymous]
 		public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
 		{
 			return await _context.Users.ToListAsync();
@@ -24,6 +25,7 @@ namespace LelTarGameBackend.Controllers.v1
 
 		// GET: api/Users/5
 		[HttpGet("{id}")]
+		[AllowAnonymous]
 		public async Task<ActionResult<Users>> GetUsers(long id)
 		{
 			var users = await _context.Users.FindAsync(id);
@@ -39,6 +41,7 @@ namespace LelTarGameBackend.Controllers.v1
 		// PUT: api/Users/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
+		[Authorize(Roles = "Admin,Moderator")]
 		public async Task<IActionResult> PutUsers(long id, Users users)
 		{
 			if (id != users.Id)
@@ -80,6 +83,7 @@ namespace LelTarGameBackend.Controllers.v1
 
 		// DELETE: api/Users/5
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "Admin,Moderator")]
 		public async Task<IActionResult> DeleteUsers(long id)
 		{
 			var users = await _context.Users.FindAsync(id);

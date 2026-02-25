@@ -17,6 +17,7 @@ namespace LelTarGameBackend.Controllers.v1
 
 		// GET: api/Lbs
 		[HttpGet]
+		[AllowAnonymous]
 		public async Task<ActionResult<IEnumerable<Lb>>> GetLb()
 		{
 			return await _context.Lb.ToListAsync();
@@ -24,6 +25,7 @@ namespace LelTarGameBackend.Controllers.v1
 
 		// GET: api/Lbs/5
 		[HttpGet("{id}")]
+		[AllowAnonymous]
 		public async Task<ActionResult<Lb>> GetLb(long id)
 		{
 			var lb = await _context.Lb.FindAsync(id);
@@ -39,6 +41,7 @@ namespace LelTarGameBackend.Controllers.v1
 		// PUT: api/Lbs/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
+		[Authorize(Roles = "Admin,Moderator")]
 		public async Task<IActionResult> PutLb(long id, Lb lb)
 		{
 			if (id != lb.Id)
@@ -70,6 +73,7 @@ namespace LelTarGameBackend.Controllers.v1
 		// POST: api/Lbs
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
+		[Authorize(Roles = "Admin,Moderator,User")]
 		public async Task<ActionResult<Lb>> PostLb(Lb lb)
 		{
 			_context.Lb.Add(lb);
@@ -80,6 +84,7 @@ namespace LelTarGameBackend.Controllers.v1
 
 		// DELETE: api/Lbs/5
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "Admin,Moderator")]
 		public async Task<IActionResult> DeleteLb(long id)
 		{
 			var lb = await _context.Lb.FindAsync(id);
