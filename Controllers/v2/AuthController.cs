@@ -18,6 +18,7 @@ namespace LelTarGameBackend.Controllers.v2
 		private readonly AppDbContext _context = context;
 		private readonly TokenService _tokenSvc = tokenSvc;
 
+		// POST /api/v2/auth/register
 		[HttpPost("register")]
 		public async Task<IActionResult> Register(RegisterRequest req)
 		{
@@ -25,14 +26,8 @@ namespace LelTarGameBackend.Controllers.v2
 			var userCheck = await _context.Users.AnyAsync(u => u.Username == req.Username);
 
 
-			if (emailCheck)
-			{
-				return BadRequest(new { message = "This e-mail address is already in use!" });
-			}
-			else if (userCheck)
-			{
-				return BadRequest(new { message = "This username is already in use!" });
-			}
+			if (emailCheck) return BadRequest(new { message = "This e-mail address is already in use!" });
+			if (userCheck) return BadRequest(new { message = "This username is already in use!" });
 
 			var user = new Users
 			{
@@ -49,6 +44,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new AuthResponse(token, user.Username, user.Role));
 		}
 
+		// GET /api/v2/auth/login
 		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginRequest req)
 		{
