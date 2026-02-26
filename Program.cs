@@ -32,6 +32,19 @@ builder.Services.AddSwaggerGen(c =>
 {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lel.tar Backend API v1", Version = "v1.0"	});
 	c.SwaggerDoc("v2", new OpenApiInfo { Title = "Lel.tar Backend API v2", Version = "v2.0" });
+	c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+	{
+		Name = "Authorization",
+		Type = SecuritySchemeType.Http,
+		Scheme = "Bearer",
+		BearerFormat = "JWT",
+		In = ParameterLocation.Header,
+		Description = "Add JWT token: Bearer {token}"
+	});
+	c.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
+	{
+		[new OpenApiSecuritySchemeReference("Bearer", doc)] = []
+	});
 });
 
 // connect this shit to database
@@ -39,7 +52,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));
 
 // JWT auth config
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = jwtSettings["Key"];
 
 builder.Services.AddAuthentication(options =>
@@ -109,7 +122,7 @@ using (var scope = app.Services.CreateScope())
 	try
 	{
 		context.Database.EnsureCreated();
-		// vagy context.Database.Migrate(); ha migration-őket használsz
+		// or context.Database.Migrate(); if migrations are used
 	}
 	catch (Exception ex)
 	{
