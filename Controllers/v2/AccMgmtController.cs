@@ -11,6 +11,8 @@ namespace LelTarGameBackend.Controllers.v2
 	[ApiVersion("2.0")]
 	[Route("api/v{version:ApiVersion}/accMgmt")]
 	[Authorize(Roles = "Admin,Moderator,User")]
+	//[Authorize]
+	//[AllowAnonymous]	// temporary so that I can use them for testing
 	public class AccMgmtController(AppDbContext context) : ControllerBase
 	{
 		private readonly AppDbContext _context = context;
@@ -75,17 +77,36 @@ namespace LelTarGameBackend.Controllers.v2
 		{
 			var user = await _context.Users.FindAsync(id);
 			if (user == null) return NotFound();
-			if (user.Password == password)
+			if (BCrypt.Net.BCrypt.Verify(password, user.Password))
 			{
 				return BadRequest(new { message = "You cannot change your password to the same one!" });
 			}
 			else
 			{
-				user.Password = password;
+				user.Password = BCrypt.Net.BCrypt.HashPassword(password);
 			}
 
 			await _context.SaveChangesAsync();
 			return Ok(new { user.Id, user.Password });
+		}
+
+		// PUT /api/v2/{id}/updateCountry
+		[HttpPut("{id}/updateCountry")]
+		public async Task<IActionResult> UpdateCountry(long id, [FromBody] int countryId)
+		{
+			var user = await _context.Users.FindAsync(id);
+			if (user == null) return NotFound();
+			if (user.CountryID == countryId)
+			{
+				return BadRequest(new { message = "You cannot change your username to the same one!" });
+			}
+			else
+			{
+				user.CountryID = countryId;
+			}
+
+			await _context.SaveChangesAsync();
+			return Ok(new { user.Id, user.CountryID });
 		}
 
 		// PUT /api/v2/{id}/updateRole
