@@ -38,7 +38,7 @@ namespace LelTarGameBackend.Controllers.v1
 			return lb;
 		}
 
-		// PUT: api/Lbs/5
+		/*// PUT: api/Lbs/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
 		[Authorize(Roles = "Admin,Moderator")]
@@ -102,6 +102,6 @@ namespace LelTarGameBackend.Controllers.v1
 		private bool LbExists(long id)
 		{
 			return _context.Lb.Any(e => e.Id == id);
-		}
+		}*/
 	}
 }

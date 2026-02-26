@@ -38,7 +38,7 @@ namespace LelTarGameBackend.Controllers.v1
 			return users;
 		}
 
-		// PUT: api/Users/5
+		/*// PUT: api/Users/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
 		[Authorize(Roles = "Admin,Moderator")]
@@ -101,6 +101,6 @@ namespace LelTarGameBackend.Controllers.v1
 		private bool UsersExists(long id)
 		{
 			return _context.Users.Any(e => e.Id == id);
-		}
+		}*/
 	}
 }
