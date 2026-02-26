@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LelTarGameBackend.Models.v1
+namespace LelTarGameBackend.Models
 {
 	public class Lb // Leaderboards
 	{

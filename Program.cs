@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning;
-using LelTarGameBackend.Data.v1;
 using LelTarGameBackend.Services;
+using LelTarGameBackend.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -49,7 +49,9 @@ builder.Services.AddSwaggerGen(c =>
 
 // connect this shit to database
 builder.Services.AddDbContext<AppDbContext>(options =>
-	options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));
+	options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));	// api v1
+builder.Services.AddDbContext<AppDbContext>(options =>
+	options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));	// api v2
 
 // JWT auth config
 var jwtSettings = builder.Configuration.GetSection("Jwt");

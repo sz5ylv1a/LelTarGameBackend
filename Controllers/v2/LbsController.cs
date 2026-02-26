@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning;
-using LelTarGameBackend.Models.v1;
-using LelTarGameBackend.Data.v2;
+using LelTarGameBackend.Models;
+using LelTarGameBackend.Data;
 using LelTarGameBackend.DTOs.v2;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

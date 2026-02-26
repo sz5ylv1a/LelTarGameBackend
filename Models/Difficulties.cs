@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LelTarGameBackend.Models.v1
+namespace LelTarGameBackend.Models
 {
 	public class Difficulties
 	{

@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using LelTarGameBackend.Models.v1;
+using LelTarGameBackend.Models;
 
 namespace LelTarGameBackend.Services;
 
