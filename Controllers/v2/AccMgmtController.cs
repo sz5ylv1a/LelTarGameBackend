@@ -88,7 +88,8 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new { user.Id, user.Password });
 		}
 
-		// PUT /api/v2/{id}/updateUsername
+		// PUT /api/v2/{id}/updateRole
+		// this is for promoting or demoting staff, or to outright ban an user
 		[HttpPut("{id}/updateRole")]
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> UpdateRole(long id, [FromBody] string role)
@@ -111,6 +112,22 @@ namespace LelTarGameBackend.Controllers.v2
 
 			await _context.SaveChangesAsync();
 			return Ok(new { user.Id, user.Role });
+		}
+
+		// DELETE /api/v2/{id}/deleteAccount
+		[HttpDelete("{id}/deleteAccount")]
+		public async Task<IActionResult> DeleteAccount(long id)
+		{
+			var user = await _context.Users.FindAsync(id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			_context.Users.Remove(user);
+
+			await _context.SaveChangesAsync();
+			return NoContent();
 		}
 	}
 }

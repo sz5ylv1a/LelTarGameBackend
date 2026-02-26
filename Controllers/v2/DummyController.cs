@@ -19,7 +19,7 @@ namespace LelTarGameBackend.Controllers.v2
 
 		// GET /api/v2/dummy/countries
 		[HttpGet("countries")]
-		public async Task<ActionResult<IEnumerable<Countries>>> GetCountries()
+		public async Task<IActionResult> GetCountries()
 		{
 			return Ok(await _context.Countries.ToListAsync());
 		}
