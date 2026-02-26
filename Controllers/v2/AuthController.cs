@@ -13,6 +13,7 @@ namespace LelTarGameBackend.Controllers.v2
 	[ApiVersion("2.0")]
 	[Route("api/v{version:ApiVersion}/auth")]
 	[Authorize]
+	[AllowAnonymous]
 	public class AuthController(AppDbContext context, TokenService tokenSvc) : ControllerBase
 	{
 		private readonly AppDbContext _context = context;
