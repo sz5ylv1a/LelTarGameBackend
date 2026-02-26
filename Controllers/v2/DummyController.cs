@@ -19,14 +19,9 @@ namespace LelTarGameBackend.Controllers.v2
 
 		// GET /api/v2/dummy/countries
 		[HttpGet("countries")]
-		public async Task<IActionResult> GetCountries()
+		public async Task<ActionResult<IEnumerable<Countries>>> GetCountries()
 		{
-			var countries = await _context.Countries
-				.Select(c => new
-				{
-					c.Id, c.Name, c.Flag
-				}).ToListAsync();
-			return Ok(countries);
+			return Ok(await _context.Countries.ToListAsync());
 		}
 
 		// GET /api/v2/dummy/countries/{id}
@@ -42,12 +37,7 @@ namespace LelTarGameBackend.Controllers.v2
 		[HttpGet("difficulties")]
 		public async Task<IActionResult> GetDifficulties()
 		{
-			var difficulties = await _context.Difficulties
-				.Select(c => new
-				{
-					c.Id, c.DifficultyName, c.Description,
-				}).ToListAsync();
-			return Ok(difficulties);
+			return Ok(await _context.Difficulties.ToListAsync());
 		}
 
 		// GET /api/v2/dummy/difficulties/{id}
