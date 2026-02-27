@@ -50,34 +50,19 @@ namespace LelTarGameBackend.Data
 					.HasColumnType("varchar(140)");
 			});
 
-			modelBuilder.Entity<Lb>(e =>
-			{
-				// Table config
-				e.ToTable("lb");
-				e.HasKey(e => e.Id);
-
-				// Columns
-				e.Property(e => e.Id)
-					.ValueGeneratedOnAdd()
-					.HasColumnType(bigint);
-				e.Property(e => e.UsernameID)
-					.IsRequired()
-					.HasColumnType(bigint);
-				e.Property(e => e.Score)
-					.IsRequired()
-					.HasColumnType(bigint);
-				e.Property(e => e.DifficultyID)
-					.IsRequired();
-				e.Property(e => e.AchievedAt)
-					.HasColumnType("datetime")
-					.HasDefaultValueSql("CURRENT_TIMESTAMP");
-			});
-
 			modelBuilder.Entity<Users>(e =>
 			{
 				// Table properties
 				e.ToTable("users");
 				e.HasKey(e => e.Id);
+				e.HasIndex(e => e.Username)
+					.IsUnique();
+				e.HasIndex(e => e.Email)
+					.IsUnique();
+				e.HasIndex(e => e.CountryID);
+
+				// Foreign keys
+				e.HasOne(e => e.Countries).WithMany(e => e.Users).HasForeignKey(e => e.CountryID).HasConstraintName("users_ibfk_1");
 
 				// Columns
 				e.Property(e => e.Id)
@@ -95,7 +80,8 @@ namespace LelTarGameBackend.Data
 					.IsRequired()
 					.HasMaxLength(1024)
 					.HasColumnType("varchar(1024)");
-				e.Property(e => e.CountryID);
+				e.Property(e => e.CountryID)
+					.HasDefaultValueSql("0");
 				e.Property(e => e.Role)
 					.IsRequired()
 					.HasMaxLength(32)
@@ -103,6 +89,35 @@ namespace LelTarGameBackend.Data
 					.HasDefaultValueSql("Default");
 				e.Property(e => e.CreatedAt)
 					.IsRequired()
+					.HasColumnType("datetime")
+					.HasDefaultValueSql("CURRENT_TIMESTAMP");
+			});
+
+			modelBuilder.Entity<Lb>(e =>
+			{
+				// Table config
+				e.ToTable("lb");
+				e.HasKey(e => e.Id);
+				e.HasIndex(e => e.UsernameID);
+				e.HasIndex(e => e.DifficultyID);
+
+				// Foreign keys
+				e.HasOne(e => e.Users).WithMany(e => e.Lb).HasForeignKey(e => e.UsernameID).HasConstraintName("lb_ibfk_2");
+				e.HasOne(e => e.Difficulties).WithMany(e => e.Lb).HasForeignKey(e => e.DifficultyID).HasConstraintName("lb_ibfk_1");
+
+				// Columns
+				e.Property(e => e.Id)
+					.ValueGeneratedOnAdd()
+					.HasColumnType(bigint);
+				e.Property(e => e.UsernameID)
+					.IsRequired()
+					.HasColumnType(bigint);
+				e.Property(e => e.Score)
+					.IsRequired()
+					.HasColumnType(bigint);
+				e.Property(e => e.DifficultyID)
+					.IsRequired();
+				e.Property(e => e.AchievedAt)
 					.HasColumnType("datetime")
 					.HasDefaultValueSql("CURRENT_TIMESTAMP");
 			});

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LelTarGameBackend.Controllers.v1
+namespace LelTarGameBackend.Controllers.v1  // THIS VERSION WILL BE RETIRED SOON AND SHOULD NOT BE USED ANYMORE!!
 {
 	[ApiController]
 	[ApiVersion("1.0")]
@@ -16,14 +16,14 @@ namespace LelTarGameBackend.Controllers.v1
 	{
 		private readonly AppDbContext _context = context;
 
-		// GET: api/Difficulties
+		// GET: api/v1/Difficulties
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<Difficulties>>> GetDifficulties()
 		{
 			return await _context.Difficulties.ToListAsync();
 		}
 
-		// GET: api/Difficulties/5
+		// GET: api/v1/Difficulties/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult<Difficulties>> GetDifficulties(int id)
 		{

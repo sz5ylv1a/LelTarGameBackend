@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning;
-using LelTarGameBackend.Models;
 using LelTarGameBackend.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +10,11 @@ namespace LelTarGameBackend.Controllers.v2
 	[ApiVersion("2.0")]
 	[Route("api/v{version:ApiVersion}/accMgmt")]
 	[Authorize(Roles = "Admin,Moderator,User")]
-	//[Authorize]
-	//[AllowAnonymous]	// temporary so that I can use them for testing
 	public class AccMgmtController(AppDbContext context) : ControllerBase
 	{
 		private readonly AppDbContext _context = context;
 
-		// GET /api/v2/users
+		// GET /api/v2/accMgmt
 		[HttpGet]
 		public async Task<IActionResult> GetAll() {
 			var users = await _context.Users
@@ -34,7 +31,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(users);
 		}
 
-		// PUT /api/v2/{id}/updateUsername
+		// PUT /api/v2/accMgmt/{id}/updateUsername
 		[HttpPut("{id}/updateUsername")]
 		public async Task<IActionResult> UpdateUsername(long id, [FromBody] string username)
 		{
@@ -52,7 +49,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new { user.Id, user.Username });
 		}
 
-		// PUT /api/v2/{id}/updateEmail
+		// PUT /api/v2/accMgmt/{id}/updateEmail
 		[HttpPut("{id}/updateEmail")]
 		public async Task<IActionResult> UpdateEmail(long id, [FromBody] string email)
 		{
@@ -71,7 +68,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new { user.Id, user.Email });
 		}
 
-		// PUT /api/v2/{id}/updatePassword
+		// PUT /api/v2/accMgmt/{id}/updatePassword
 		[HttpPut("{id}/updatePassword")]
 		public async Task<IActionResult> UpdatePassword(long id, [FromBody] string password)
 		{
@@ -90,7 +87,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new { user.Id, user.Password });
 		}
 
-		// PUT /api/v2/{id}/updateCountry
+		// PUT /api/v2/accMgmt/{id}/updateCountry
 		[HttpPut("{id}/updateCountry")]
 		public async Task<IActionResult> UpdateCountry(long id, [FromBody] int countryId)
 		{
@@ -109,7 +106,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new { user.Id, user.CountryID });
 		}
 
-		// PUT /api/v2/{id}/updateRole
+		// PUT /api/v2/accMgmt/{id}/updateRole
 		// this is for promoting or demoting staff, or to outright ban an user
 		[HttpPut("{id}/updateRole")]
 		[Authorize(Roles = "Admin")]
@@ -135,7 +132,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new { user.Id, user.Role });
 		}
 
-		// DELETE /api/v2/{id}/deleteAccount
+		// DELETE /api/v2/accMgmt/{id}/deleteAccount
 		[HttpDelete("{id}/deleteAccount")]
 		public async Task<IActionResult> DeleteAccount(long id)
 		{

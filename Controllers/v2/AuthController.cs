@@ -35,6 +35,7 @@ namespace LelTarGameBackend.Controllers.v2
 				Username = req.Username,
 				Email = req.Email,
 				Password = BCrypt.Net.BCrypt.HashPassword(req.Password),
+				CountryID = 0,
 				Role = "User"
 			};
 
@@ -51,7 +52,7 @@ namespace LelTarGameBackend.Controllers.v2
 		{
 			var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == req.Username);
 
-			if (user == null || !BCrypt.Net.BCrypt.Verify(req.Password, user.Password))
+			if (user == null || !BCrypt.Net.BCrypt.Verify(req.Password, user.Password.ToString()))
 			{
 				return Unauthorized(new { message = "Invalid username or password." });
 			}

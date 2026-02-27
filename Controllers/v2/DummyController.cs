@@ -1,13 +1,12 @@
 ﻿using Asp.Versioning;
 using LelTarGameBackend.Data;
-using LelTarGameBackend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LelTarGameBackend.Controllers.v2
 {
-	// this controller is for dummy data that's accessible with GET requests
+	// this controller is for dummy data that's accessible with GET requests only
 	[ApiController]
 	[ApiVersion("2.0")]
 	[Route("api/v{version:ApiVersion}/dummy")]

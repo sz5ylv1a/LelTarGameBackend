@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace LelTarGameBackend.Models
 {
@@ -13,5 +14,8 @@ namespace LelTarGameBackend.Models
 		[AllowNull]
 		[MaxLength(4)]
 		public string? Flag { get; set; }
+
+		[JsonIgnore]
+		public ICollection<Users>? Users { get; set; }
 	}
 }
