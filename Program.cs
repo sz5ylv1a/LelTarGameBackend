@@ -30,7 +30,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-	c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lel.tar Backend API v1", Version = "v1.0"	});
+	c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lel.tar Backend API v1", Version = "v1.0" });
 	c.SwaggerDoc("v2", new OpenApiInfo { Title = "Lel.tar Backend API v2", Version = "v2.0" });
 	c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 	{
