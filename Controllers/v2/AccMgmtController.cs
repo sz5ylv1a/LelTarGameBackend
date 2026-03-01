@@ -15,8 +15,8 @@ namespace LelTarGameBackend.Controllers.v2
 	{
 		private readonly AppDbContext _context = context;
 
-		// GET /api/v2/accMgmt/view
-		[HttpGet("view")]
+		// GET /api/v2/accMgmt/view/all
+		[HttpGet("view/all")]
 		[Authorize]
 		[AllowAnonymous]
 		public async Task<IActionResult> GetAll() {
@@ -31,6 +31,27 @@ namespace LelTarGameBackend.Controllers.v2
 				})
 				.ToListAsync();
 			return Ok(users);
+		}
+
+		// GET /api/v2/accMgmt/view/{id}
+		[HttpGet("view/{id}")]
+		[Authorize]
+		[AllowAnonymous]
+		public async Task<IActionResult> GetSpecificInfo(long id)
+		{
+			var user = await _context.Users
+				.Select(u => new
+				{
+					u.Id,
+					u.Username,
+					u.CountryID,
+					u.Role,
+					u.CreatedAt
+				})
+				.FirstOrDefaultAsync(u => u.Id == id);
+
+			if (user == null) return NotFound();
+			return Ok(user);
 		}
 
 		// PUT /api/v2/accMgmt/{id}/updateUsername
