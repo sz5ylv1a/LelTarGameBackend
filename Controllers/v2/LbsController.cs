@@ -16,15 +16,19 @@ namespace LelTarGameBackend.Controllers.v2
 	{
 		private readonly AppDbContext _context = context;
 
-		// GET /api/v2/lbs
-		[HttpGet]
+		// GET /api/v2/lbs/all
+		[HttpGet("all")]
+		[Authorize]
+		[AllowAnonymous]
 		public async Task<IActionResult> GetAll()
 		{
 			return Ok(await _context.Lb.ToListAsync());
 		}
 
-		// GET /api/v2/lbs
+		// GET /api/v2/lbs/{id}
 		[HttpGet("{id}")]
+		[Authorize]
+		[AllowAnonymous]
 		public async Task<IActionResult> GetSingleEntry(long id)
 		{
 			var lb = await _context.Lb.FindAsync(id);

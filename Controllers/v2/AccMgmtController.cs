@@ -3,6 +3,7 @@ using LelTarGameBackend.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 
 namespace LelTarGameBackend.Controllers.v2
 {
@@ -14,8 +15,10 @@ namespace LelTarGameBackend.Controllers.v2
 	{
 		private readonly AppDbContext _context = context;
 
-		// GET /api/v2/accMgmt
-		[HttpGet]
+		// GET /api/v2/accMgmt/view
+		[HttpGet("view")]
+		[Authorize]
+		[AllowAnonymous]
 		public async Task<IActionResult> GetAll() {
 			var users = await _context.Users
 				.Select(u => new
