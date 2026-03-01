@@ -25,7 +25,6 @@ namespace LelTarGameBackend.Controllers.v2
 				{
 					u.Id,
 					u.Username,
-					u.Email,
 					u.CountryID,
 					u.Role,
 					u.CreatedAt
