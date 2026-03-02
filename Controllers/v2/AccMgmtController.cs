@@ -157,6 +157,7 @@ namespace LelTarGameBackend.Controllers.v2
 
 		// DELETE /api/v2/accMgmt/{id}/deleteAccount
 		[HttpDelete("{id}/deleteAccount")]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> DeleteAccount(long id)
 		{
 			var user = await _context.Users.FindAsync(id);
