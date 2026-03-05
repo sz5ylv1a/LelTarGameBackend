@@ -13,6 +13,7 @@
 
 	public record AuthResponse(
 		string Token,
+		long Id,
 		string Username,
 		string Role
 	);

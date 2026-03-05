@@ -43,7 +43,7 @@ namespace LelTarGameBackend.Controllers.v2
 			await _context.SaveChangesAsync();
 
 			var token = _tokenSvc.GenerateToken(user);
-			return Ok(new AuthResponse(token, user.Username, user.Role));
+			return Ok(new AuthResponse(token, user.Id, user.Username, user.Role));
 		}
 
 		// GET /api/v2/auth/login
@@ -58,7 +58,7 @@ namespace LelTarGameBackend.Controllers.v2
 			}
 
 			var token = _tokenSvc.GenerateToken(user);
-			return Ok(new AuthResponse(token, user.Username, user.Role));
+			return Ok(new AuthResponse(token, user.Id, user.Username, user.Role));
 		}
 	}
 }
