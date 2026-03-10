@@ -48,23 +48,20 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // connect this shit to database
-builder.Services.AddDbContext<AppDbContext>(options =>
-	options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));	// api v1
-builder.Services.AddDbContext<AppDbContext>(options =>
-	options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));	// api v2
+builder.Services.AddDbContext<AppDbContext>(o => o.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")!));
 
 // JWT auth config
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = jwtSettings["Key"];
 
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication(o =>
 {
-	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+	o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddJwtBearer(options =>
+.AddJwtBearer(o =>
 {
-	options.TokenValidationParameters = new TokenValidationParameters
+	o.TokenValidationParameters = new TokenValidationParameters
 	{
 		ValidateIssuer = true,
 		ValidateAudience = true,
@@ -82,13 +79,13 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
 
 // CORS config, dunno what would this be used for LOL
-builder.Services.AddCors(options =>
+builder.Services.AddCors(o =>
 {
-	options.AddPolicy("AllowFrontend", policy =>
+	o.AddPolicy("AllowFrontend", p =>
 	{
-		policy.AllowAnyOrigin()
-			  .AllowAnyMethod()
-			  .AllowAnyHeader();
+		p.AllowAnyOrigin()
+		 .AllowAnyMethod()
+		 .AllowAnyHeader();
 	});
 });
 
