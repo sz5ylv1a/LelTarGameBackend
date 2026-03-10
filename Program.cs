@@ -13,16 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // API versioning setup
-builder.Services.AddApiVersioning(options =>
+builder.Services.AddApiVersioning(o =>
 {
-	options.DefaultApiVersion = new ApiVersion(1, 0);
-	options.AssumeDefaultVersionWhenUnspecified = true;
-	options.ReportApiVersions = true;
+	o.DefaultApiVersion = new ApiVersion(1, 0);
+	o.AssumeDefaultVersionWhenUnspecified = true;
+	o.ReportApiVersions = true;
 })
-.AddApiExplorer(options =>
+.AddApiExplorer(o =>
 {
-	options.GroupNameFormat = "'v'VVV";
-	options.SubstituteApiVersionInUrl = true;
+	o.GroupNameFormat = "'v'VVV";
+	o.SubstituteApiVersionInUrl = true;
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
