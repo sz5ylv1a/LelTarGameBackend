@@ -3,7 +3,6 @@ using LelTarGameBackend.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Versioning;
 
 namespace LelTarGameBackend.Controllers.v2
 {
