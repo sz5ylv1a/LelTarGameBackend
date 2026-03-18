@@ -3,6 +3,7 @@
 GET {{LelTarGameBackend_HostAddress}}/leltargame/
 Accept: application/json
 Access-Control-Allow-Origin: *
+Content-Type: application/json
 
 
 ###
