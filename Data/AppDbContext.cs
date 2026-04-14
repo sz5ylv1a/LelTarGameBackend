@@ -62,7 +62,10 @@ namespace LelTarGameBackend.Data
 				e.HasIndex(e => e.CountryID);
 
 				// Foreign keys
-				e.HasOne(e => e.Countries).WithMany(e => e.Users).HasForeignKey(e => e.CountryID).HasConstraintName("users_ibfk_1");
+				e.HasOne(e => e.Countries)
+					.WithMany(e => e.Users)
+					.HasForeignKey(e => e.CountryID)
+					.HasConstraintName("users_ibfk_1");
 
 				// Columns
 				e.Property(e => e.Id)
@@ -102,8 +105,14 @@ namespace LelTarGameBackend.Data
 				e.HasIndex(e => e.DifficultyID);
 
 				// Foreign keys
-				e.HasOne(e => e.Users).WithMany(e => e.Lb).HasForeignKey(e => e.UsernameID).HasConstraintName("lb_ibfk_2");
-				e.HasOne(e => e.Difficulties).WithMany(e => e.Lb).HasForeignKey(e => e.DifficultyID).HasConstraintName("lb_ibfk_1");
+				e.HasOne(e => e.Users)
+					.WithMany(e => e.Lb)
+					.HasForeignKey(e => e.UsernameID)
+					.HasConstraintName("lb_ibfk_2");
+				e.HasOne(e => e.Difficulties)
+					.WithMany(e => e.Lb)
+					.HasForeignKey(e => e.DifficultyID)
+					.HasConstraintName("lb_ibfk_1");
 
 				// Columns
 				e.Property(e => e.Id)
