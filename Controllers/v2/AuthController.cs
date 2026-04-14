@@ -26,9 +26,19 @@ namespace LelTarGameBackend.Controllers.v2
 			var emailCheck = await _context.Users.AnyAsync(u => u.Email == req.Email);
 			var userCheck = await _context.Users.AnyAsync(u => u.Username == req.Username);
 
-
+			// anti duped name and e-mail mechanism
 			if (emailCheck) return BadRequest(new { message = "This e-mail address is already in use!" });
 			if (userCheck) return BadRequest(new { message = "This username is already in use!" });
+
+			// make sure everything fullfills the name and password length requirements
+			// (prolly not the correct way to implement this shit but i'll worry about that later)
+			if (req.Username.Length == 0) return BadRequest(new { message = "Please provide an username!" });
+			if (req.Username.Length < 3) return BadRequest(new { message = "Username must be at least 3 characters long!" });
+			if (req.Username.Length > 32) return BadRequest(new { message = "Username cannot be longer than 32 characters!" });
+
+			if (req.Password.Length == 0) return BadRequest(new { message = "Please provide a password!" });
+			if (req.Password.Length < 8) return BadRequest(new { message = "Password must be at least 8 characters long!" });
+
 
 			var user = new Users
 			{

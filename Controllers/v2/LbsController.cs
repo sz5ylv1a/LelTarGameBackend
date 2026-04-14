@@ -41,6 +41,10 @@ namespace LelTarGameBackend.Controllers.v2
 		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitScore(Submit2LbRequest req)
 		{
+			var makeSureMsg = "Make sure that the score you're submitting is not done on Easy, and is not below 100,000 points.";
+			if (req.DifficultyID == 1) return BadRequest(new { message = $"Cannot submit scores on this difficulty! {makeSureMsg}" });
+			if (req.Score < 100000) return BadRequest(new { message = $"Score is too low to submit! {makeSureMsg}" });
+
 			var entry = new Lb
 			{
 				UsernameID = req.UsernameID,

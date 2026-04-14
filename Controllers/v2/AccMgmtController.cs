@@ -59,6 +59,10 @@ namespace LelTarGameBackend.Controllers.v2
 		{
 			var user = await _context.Users.FindAsync(id);
 			if (user == null) return NotFound();
+
+			if (username.Length < 3) return BadRequest(new { message = "Username must be at least 3 characters long!" });
+			if (username.Length > 32) return BadRequest(new { message = "Username cannot be longer than 32 characters!" });
+
 			if (user.Username == username)
 			{
 				return BadRequest(new { message = "You cannot change your username to the same one!" });
@@ -96,6 +100,9 @@ namespace LelTarGameBackend.Controllers.v2
 		{
 			var user = await _context.Users.FindAsync(id);
 			if (user == null) return NotFound();
+
+			if (password.Length < 8) return BadRequest(new { message = "Password must be at least 8 characters long!" });
+
 			if (BCrypt.Net.BCrypt.Verify(password, user.Password))
 			{
 				return BadRequest(new { message = "You cannot change your password to the same one!" });
@@ -117,7 +124,7 @@ namespace LelTarGameBackend.Controllers.v2
 			if (user == null) return NotFound();
 			if (user.CountryID == countryId)
 			{
-				return BadRequest(new { message = "You cannot change your username to the same one!" });
+				return BadRequest(new { message = "You cannot change your country to the same one!" });
 			}
 			else
 			{
@@ -160,10 +167,7 @@ namespace LelTarGameBackend.Controllers.v2
 		public async Task<IActionResult> DeleteAccount(long id)
 		{
 			var user = await _context.Users.FindAsync(id);
-			if (user == null)
-			{
-				return NotFound();
-			}
+			if (user == null) return NotFound();
 
 			_context.Users.Remove(user);
 
