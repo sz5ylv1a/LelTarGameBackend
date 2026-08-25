@@ -43,6 +43,6 @@ All API requests are handled at `https://leltargame.tryasp.net/api`, and must be
 - `api/v2/lbs/submit` - Submit score to the leaderboards
 - `api/v2/lbs/#/disqualify` - Disqualify a leaderboard entry, preventing it from being shown in the public leaderboards (Admin and Moderator only)
 
-### v1.0 *(deprecated, read-only)*
+### v1.0 *(deprecated and retired)*
 
-- Documenting soon... or not...
+API v1 has been retired completely as of 2026-08-25. Please use v2 instead.
