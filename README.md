@@ -1,6 +1,6 @@
-﻿# Lel.tar Backend
+﻿# Backend for Lel.tar
 
-Backend server for the school project game **[Lel.tar](https://github.com/LohinSys/LelTarGame)**, made using **ASP.NET 10.0** and **Visual Studio 2026**.
+Backend server for my game **[Lel.tar](https://github.com/LohinSys/LelTarGame)**, made using **ASP.NET 10.0** in **Visual Studio 2026**.
 
 ## Role Index
 
