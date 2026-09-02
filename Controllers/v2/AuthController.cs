@@ -56,7 +56,7 @@ namespace LelTarGameBackend.Controllers.v2
 			return Ok(new AuthResponse(token, user.Id, user.Username, user.Role));
 		}
 
-		// GET /api/v2/auth/login
+		// POST /api/v2/auth/login
 		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginRequest req)
 		{
