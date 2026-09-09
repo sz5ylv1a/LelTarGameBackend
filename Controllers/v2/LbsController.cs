@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LelTarGameBackend.Controllers.v2
 {
 	[ApiController]
-	[ApiVersion("2.0")]
+	[ApiVersion("2")]
 	[Route("api/v{version:ApiVersion}/lbs")]
 	[Authorize(Roles = "Admin,Moderator,User")]
 	public class LbsController(AppDbContext context) : ControllerBase

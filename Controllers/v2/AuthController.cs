@@ -10,7 +10,7 @@ using LelTarGameBackend.DTOs.v2;
 namespace LelTarGameBackend.Controllers.v2
 {
 	[ApiController]
-	[ApiVersion("2.0")]
+	[ApiVersion("2")]
 	[Route("api/v{version:ApiVersion}/auth")]
 	[Authorize]
 	[AllowAnonymous]

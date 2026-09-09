@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LelTarGameBackend.Controllers.v2
 {
 	[ApiController]
-	[ApiVersion("2.0")]
+	[ApiVersion("2")]
 	[Route("api/v{version:ApiVersion}/accMgmt")]
 	[Authorize(Roles = "Admin,Moderator,User")]
 	public class AccMgmtController(AppDbContext context) : ControllerBase

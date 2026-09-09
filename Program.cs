@@ -30,8 +30,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-	c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lel.tar Backend API v1", Version = "v1.0" });
-	c.SwaggerDoc("v2", new OpenApiInfo { Title = "Lel.tar Backend API v2", Version = "v2.0" });
+	c.SwaggerDoc("v2", new OpenApiInfo { Title = "Lel.tar Backend API", Version = "v2.0.1" });
 	c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 	{
 		Name = "Authorization",
@@ -78,7 +77,7 @@ builder.Services.AddAuthentication(o =>
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
 
-// CORS config, dunno what would this be used for LOL
+// CORS config
 builder.Services.AddCors(o =>
 {
 	o.AddPolicy("AllowFrontend", p =>
@@ -91,7 +90,7 @@ builder.Services.AddCors(o =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger(c =>
@@ -100,7 +99,6 @@ if (app.Environment.IsDevelopment())
 	});
 	app.UseSwaggerUI(c =>
 	{
-		c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lel.tar Backend API v1.x");
 		c.SwaggerEndpoint("/swagger/v2/swagger.json", "Lel.tar Backend API v2.x");
 		c.RoutePrefix = "swagger";
 	});

@@ -8,7 +8,7 @@ namespace LelTarGameBackend.Controllers.v2
 {
 	// this controller is for dummy data that's accessible with GET requests only
 	[ApiController]
-	[ApiVersion("2.0")]
+	[ApiVersion("2")]
 	[Route("api/v{version:ApiVersion}/dummy")]
 	[Authorize]
 	[AllowAnonymous]
